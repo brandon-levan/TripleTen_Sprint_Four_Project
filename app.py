@@ -4,7 +4,7 @@ import streamlit as st
 import plotly.express as px
 import os 
 
-st.header('This is a header with a divider')
+st.header('Hi Pookie bean look at my streamlit web app. I''m having a lot of fun in this chapter')
 st.header('_Streamlit_ is :blue[cool] :sunglasses:')
 
 
@@ -14,9 +14,6 @@ my_file = path+'/vehicles_us.csv'
 vehicles = pd.read_csv(my_file)
 
 st.table(vehicles.head(20))
-
-
-
 
 
 
