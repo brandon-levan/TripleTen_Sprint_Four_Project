@@ -4,7 +4,7 @@ import streamlit as st
 import plotly.express as px
 import os 
 
-st.header('This is a header with a divider', divider='rainbow')
+st.header('This is a header with a divider')
 st.header('_Streamlit_ is :blue[cool] :sunglasses:')
 
 
