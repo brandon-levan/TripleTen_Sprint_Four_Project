@@ -21,23 +21,17 @@ Once the project compiled and ran locally, I created an account on Render and li
 3. Create a new web service linked to your GitHub repository:
 4. Configure the new Render web service. To your Build Command, add ```pip install streamlit & pip install -r requirements.txt```
 5. To your Start Command, add: streamlit run app.py. It should look like this: ```streamlit run app.py```
-6. Deploy to Render, wait for the build to succeed:
-You should see a link to your site, and ff these steps are performed correctly, your Streamlit application should be up and running. 
+6. Deploy to Render, wait for the build to succeed.
+    - You should see a link to your site, and if these steps are performed correctly, your Streamlit application should be up and running. 
 
 ### How To Run This Project Locally
 
 If you're interested in running this project locally on your own machine, please follow along with the steps provided below - 
-1. Test
-    - Test
-2. Test
-3. Test
-     - Test
-#. Test
-    - Test
-#. Test
-    - Test
-#. Test
-    - Test
+1. Clone this repository and store it locally
+2.
+3. As you add new Streamlit components to develop your application, you can run the ```streamlit run app.py``` command from the terminal to see what the result will look like. Do this on your local machine (preferably from a system terminal) to test that everything works before committing and pushing your changes to your own GitHub repo, if you choose to. 
+4. After running ```streamlit run app.py```, you should be able to access your local test deployment using the port [http://0.0.0.0:10000](http://0.0.0.0:10000).
+     - If successful, if should see your streamlit displaying your app. However, if unsuccessful, you'll see a message that states a potential cause for an unsuccessful build. Fix the error, save, and run the command again. 
   
 ## Conclusion 
 Thank you for taking the time to view my project. I hope you found my web application engaging and my instructions and project overview to be clear and helpful!
