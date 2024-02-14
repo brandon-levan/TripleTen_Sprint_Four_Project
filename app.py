@@ -19,6 +19,22 @@ my_file = path+'/vehicles_us.csv'
 # Read in csv
 vehicles = pd.read_csv(my_file)
 
+# Replace Missing Values 
+# Model Year - I will replace null values with a 0. Since we know that there weren't cars made in year 0, this will be a catch-all for cars without a model year
+vehicles['model_year'].fillna(0, inplace=True)
+
+# Cylinders - I will replace Odometer with the median value of the same vehcile type that was sold. Making the assumption that the median cylinder by type most closely resemble how many cylinders the vehcile may have, if it had a missing value.
+vehicles['cylinders'] = vehicles['cylinders'].fillna(vehicles.groupby('type')['cylinders'].transform('median'))
+
+# Odomoter -  I will replace Odometer with the median value of all sold cars. Because Odometer must be an integer and because 0 represents a new car, I will set the missing value with an average value for all sold vehicles in the dataset. 
+vehicles['odometer'].fillna(0, inplace=True)
+
+# Paint Color - I will replace null values with the string 'Unknown' and convert paint_color to be a string.
+vehicles['paint_color'].fillna('Unknown', inplace=True)
+
+# Is 4WD - I will replace null values with 0. Currently, when is_4wd is 1, this means that the vehicle has four-wheel drive. If zero, we can assume that the vehicle either doesn't have four wheel drive or that the value is unknown. 
+vehicles['is_4wd'].fillna(0, inplace=True)
+
 # Convert data types 
 vehicles['price'] = vehicles['price'].astype(float)
 vehicles['model_year'] = vehicles['model_year'].astype('Int64')
@@ -52,11 +68,20 @@ if plot_one:
                     , index=0
                     , horizontal=True
                     )
+    
+    # Add Slider to Adjust Date to Filter Out Year 0
+    values = st.slider(
+        'Select Model Years of Interest - Note: Model Year 0 Means Vehicle was Listed Without a Model Year',
+        0, 2020, (0, 2020))
+
+    # Create a vehicles data frame that filters with model year slider
+    vehicles_filtered = vehicles[vehicles["Model Year"].between(values[0], values[1])]
 
     # Configure parameters of Scatter Plot
-    fig_one = px.scatter(vehicles, x=genre, y="Price", color = "Condition", symbol="Condition", hover_data=['Model'], title= "Scatter plot of " + genre + " vs. Price")
+    fig_one = px.scatter(vehicles_filtered, x=genre, y="Price", color = "Condition", symbol="Condition", hover_data=['Model'], title= "Scatter plot of " + genre + " vs. Price")
     
     # Plot Scatter Plot
+    # If I wanted to take this one step further, I could use a streamlit slider to filter out model year 0 
     st.plotly_chart(fig_one, theme="streamlit", use_container_width=True)
 
 # Create toggle that allows user to hide or show the histogram. Default toggle to true
