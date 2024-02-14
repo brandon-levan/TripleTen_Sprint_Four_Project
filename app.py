@@ -23,11 +23,11 @@ vehicles = pd.read_csv(my_file)
 # Model Year - I will replace null values with a 0. Since we know that there weren't cars made in year 0, this will be a catch-all for cars without a model year
 vehicles['model_year'].fillna(0, inplace=True)
 
-# Cylinders - I will replace Odometer with the median value of the same vehcile type that was sold. Making the assumption that the median cylinder by type most closely resemble how many cylinders the vehcile may have, if it had a missing value.
+# Cylinders - I will replace Cylinders with the median value of the same vehicle type that was sold. Making the assumption that the median cylinder by type most closely resemble how many cylinders the vehcile may have, if it had a missing value.
 vehicles['cylinders'] = vehicles['cylinders'].fillna(vehicles.groupby('type')['cylinders'].transform('median'))
 
-# Odomoter -  I will replace Odometer with the median value of all sold cars. Because Odometer must be an integer and because 0 represents a new car, I will set the missing value with an average value for all sold vehicles in the dataset. 
-vehicles['odometer'].fillna(0, inplace=True)
+# Odomoter -  I will replace Odometer with the median value of the same vehicle type that was sold. Because Odometer must be an integer and because 0 represents a new car, I will set the missing value with an average value for all sold vehicles in the dataset of the same vehicle type. 
+vehicles['odometer'] = vehicles['odometer'].fillna(vehicles.groupby('type')['odometer'].transform('median'))
 
 # Paint Color - I will replace null values with the string 'Unknown' and convert paint_color to be a string.
 vehicles['paint_color'].fillna('Unknown', inplace=True)
