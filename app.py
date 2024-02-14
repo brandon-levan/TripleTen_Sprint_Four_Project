@@ -96,9 +96,17 @@ if plot_two:
     option = st.selectbox("You'd Like to see Count of Car Sales By Model Year and..."
                          , ('Type', 'Paint Color', 'Transmission', 'Condition')
                          )
+    
+    # Add Slider to Adjust Date to Filter Out Year 0
+    values_two = st.slider(
+        'Select Model Years of Interest - Note: Model Year 0 Means Vehicle was Listed Without a Model Year ',
+        0, 2020, (0, 2020))
+
+    # Create a vehicles data frame that filters with model year slider
+    vehicles_filtered = vehicles[vehicles["Model Year"].between(values_two[0], values_two[1])]
 
     # Configure parameters of Histogram
-    fig_two = px.histogram(vehicles, x="Model Year", color= option, title= "Histogram of Model Year vs. " + option)
+    fig_two = px.histogram(vehicles_filtered, x="Model Year", color= option, title= "Histogram of Model Year vs. " + option)
     
     # Plot Histogram 
     st.plotly_chart(fig_two, theme="streamlit", use_container_width=True)
